@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before You Begin — Financing & Fundraising</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#F4FBF7;--surface:#FFFFFF;--ink:#1A2E1F;--ink-light:#4A6455;--accent:#1A6B3C;--accent-light:#D4F0E0;--border:#C8E0D2;--amber:#D4870A;--amber-light:#FFF3CD;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--ink);min-height:100vh;}
+  .wrap{max-width:680px;margin:0 auto;padding:40px 24px 60px;}
+  .tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:4px;margin-bottom:14px;}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(24px,4vw,32px);line-height:1.2;margin-bottom:10px;}
+  .subtitle{font-size:14px;color:var(--ink-light);line-height:1.7;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+  .q-block{margin-bottom:24px;}
+  .q-label{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5;}
+  .q-hint{font-size:12px;color:var(--ink-light);margin-bottom:8px;line-height:1.5;font-style:italic;}
+  textarea{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.6;color:var(--ink);background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;resize:vertical;min-height:100px;outline:none;transition:border-color .2s;}
+  textarea:focus{border-color:var(--accent);}
+  textarea::placeholder{color:#B0C8BA;}
+  .callout{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;font-size:13px;line-height:1.6;color:var(--ink);margin:20px 0 8px;}
+  .callout strong{font-weight:600;}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+  .btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:11px 20px;border-radius:9px;border:none;cursor:pointer;transition:all .2s;}
+  .btn-primary{background:var(--accent);color:white;}
+  .btn-primary:hover{background:#135A30;}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--ink);color:white;font-size:13px;font-weight:500;padding:10px 20px;border-radius:99px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:999;white-space:nowrap;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .footer-note{text-align:center;font-size:11px;color:var(--ink-light);padding:20px 24px;border-top:1px solid var(--border);}
+  .pdf-overlay{display:none;position:fixed;inset:0;background:white;z-index:9999;overflow-y:auto;}
+  .pdf-overlay.show{display:block;}
+  .pdf-toolbar{background:#48F89B;color:#0D3D24;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:10;border-bottom:2px solid #1AC978;}
+  .pdf-toolbar-logo{height:28px;width:auto;flex-shrink:0;}
+  .pdf-toolbar-text{font-size:12px;font-weight:500;line-height:1.4;flex:1;color:#0D3D24;}
+  .pdf-toolbar-text strong{font-weight:700;}
+  .pdf-toolbar-text em{font-style:italic;font-weight:600;}
+  .pdf-toolbar-actions{display:flex;gap:8px;flex-shrink:0;}
+  .btn-print{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;padding:7px 14px;border-radius:7px;border:2px solid #0D3D24;background:#0D3D24;color:#48F89B;cursor:pointer;}
+  .btn-close-pdf{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:7px 12px;border-radius:7px;border:1.5px solid rgba(13,61,36,.4);background:transparent;color:#0D3D24;cursor:pointer;}
+  .pdf-content{max-width:680px;margin:0 auto;padding:40px 48px 60px;}
+  .pdf-header{border-bottom:2px solid #48F89B;padding-bottom:16px;margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+  .pdf-header-text{flex:1;}
+  .pdf-header-logo{height:36px;width:auto;flex-shrink:0;}
+  .pdf-course-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#1AC978;margin-bottom:6px;}
+  .pdf-title{font-family:'DM Serif Display',serif;font-size:22px;color:#1A1A1A;line-height:1.2;margin-bottom:4px;}
+  .pdf-meta{font-size:12px;color:#6B6560;}
+  .pdf-answer-block{margin-bottom:18px;page-break-inside:avoid;}
+  .pdf-answer-label{font-size:12px;font-weight:600;color:#1A1A1A;margin-bottom:6px;}
+  .pdf-answer-text{font-size:13px;color:#333;line-height:1.7;background:#F0FFF7;border-left:3px solid #48F89B;padding:10px 14px;border-radius:0 6px 6px 0;white-space:pre-wrap;word-wrap:break-word;}
+  .pdf-footer{margin-top:40px;padding-top:14px;border-top:1px solid #E2DDD8;font-size:11px;color:#6B6560;display:flex;justify-content:space-between;align-items:center;}
+  .pdf-footer-logo{height:18px;width:auto;}
+  @media print{*{visibility:hidden;}.pdf-overlay,.pdf-overlay *{visibility:visible;}.pdf-overlay{position:fixed;inset:0;overflow:visible;background:white;}.pdf-toolbar{display:none !important;}.pdf-content{padding:24px 48px;max-width:100%;}@page{margin:1.5cm;size:A4;}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="tag">Before You Begin</div>
+  <h1>A moment to reflect</h1>
+  <p class="subtitle">Before you head into the first module on stakeholder mapping, take a few minutes to set your starting point. There are no right answers here — just your own thinking, captured in your words. You can come back to this at the end and see how far your perspective has travelled.</p>
+
+  <div class="q-block">
+    <div class="q-label">💡 Do you have a social venture idea — or one you admire? Describe it in a sentence or two.</div>
+    <div class="q-hint">It can be your own idea or someone else’s. You’ll build a funding plan around an idea like this.</div>
+    <textarea id="q1" placeholder="The venture idea I’ll work with is…" oninput="autosave()"></textarea>
+  </div>
+
+  <div class="q-block">
+    <div class="q-label">💶 When you think about funding a social venture, what feels most unclear or intimidating right now?</div>
+    <div class="q-hint">Naming it now means you can watch for the answer as the course goes on.</div>
+    <textarea id="q2" placeholder="About funding, what feels most unclear is…" oninput="autosave()"></textarea>
+  </div>
+
+  <div class="callout">🌱 <strong>When you're ready,</strong> head into the first module: <strong>Why Social Enterprises Need Funding</strong>. Keep your idea in mind — you'll build a funding plan around it.</div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveAndExport()">↓ Save as PDF</button>
+  </div>
+</div>
+
+<!-- PDF Overlay -->
+<div class="pdf-overlay" id="pdfOverlay">
+  <div class="pdf-toolbar">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAABkCAMAAADjVt21AAAACXBIWXMAAAsSAAALEgHS3X78AAAAM1BMVEVHcExI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JsXaIzrAAAAEHRSTlMAMCBAYBDggMDwkNCgULBwaiguQQAAAWtJREFUWMPt2G1ugzAMBuCGfDmBdr7/aYdUdYUBwdjvtvyYD/BIMY5jc7v1GCGLIvgTh1gaY3UQZ46UI8RhLkfSRWeWPjAOM0WMw8VhHC4B4zAHkMMO5JQB4/AIcjiDnHWKDA6BHPYgh0AODyCngpwEchYHszkB5FSQQyBnBDn87/yKM3ZWP7Wz+zX01X9qX/2Z+nq/qK/3PXc1/6DmMdfTvAqan0HzPGa/2DnTn+1fkH2wvZ+29uW0SIpXb+T31Ko7afj1gUtUKY4aLV0cw9Tu6bKI03kXFSi5HHz3+xXmUJmLUJ7qkOQNWVgwrE21P78hD03BnD2g4oJpzynygrmY6tj41Ns2FhUFsxeTpmDEqU7mZ/0ZkJdU6eyl2jqkmhx2IIdAzrajadeBiHE21wyxEJicB8j5ds0gm5fJWafa4KyumWWHm0DOMtWgfwk2Z9HRbM471Tbn3dGMzldHszoEcl6pztZQj9U/GJ/PFzeemPqY1wAAAABJRU5ErkJggg==" alt="ERUA" class="pdf-toolbar-logo">
+    <div class="pdf-toolbar-text"><strong>Save as PDF:</strong> Click the button → your browser's print dialog opens → set the destination to <em>"Save as PDF"</em> → enable background graphics → save.</div>
+    <div class="pdf-toolbar-actions">
+      <button class="btn-print" onclick="window.print()">🖨 Save as PDF</button>
+      <button class="btn-close-pdf" onclick="closePDF()">✕ Close</button>
+    </div>
+  </div>
+  <div class="pdf-content" id="pdfContent"></div>
+</div>
+
+<div class="toast" id="toast">✓ Draft saved</div>
+<div class="footer-note">Financing & Fundraising for Social Enterprises · ERUA e-Course Programme</div>
+
+<script>
+  var fieldIds=['q1','q2'];
+  var labels={
+    q1:'Your social venture idea (before the course)',
+    q2:'What feels most unclear or intimidating about funding right now'
+  };
+  var STORAGE_KEY='erua_fund_intro';
+
+  var toastTimer;
+  function autosave(){
+    try{
+      var data={};
+      fieldIds.forEach(function(id){var el=document.getElementById(id);if(el)data[id]=el.value;});
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+    }catch(e){}
+    clearTimeout(toastTimer);
+    var t=document.getElementById('toast');
+    t.classList.add('show');
+    toastTimer=setTimeout(function(){t.classList.remove('show');},1800);
+  }
+
+  function restoreDraft(){
+    try{
+      var raw=localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      var data=JSON.parse(raw);
+      Object.keys(data).forEach(function(id){var el=document.getElementById(id);if(el&&data[id]!=null)el.value=data[id];});
+    }catch(e){}
+  }
+
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  function saveAndExport(){
+    var date=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    var logoSrc=document.querySelector('.pdf-toolbar-logo').src;
+    var items='';
+    fieldIds.forEach(function(id){
+      var el=document.getElementById(id);
+      if(!el) return;
+      var v=el.value.trim();
+      if(!v) return;
+      items+='<div class="pdf-answer-block"><div class="pdf-answer-label">'+labels[id]+'</div><div class="pdf-answer-text">'+esc(v)+'</div></div>';
+    });
+    if(!items) items='<div class="pdf-answer-block"><div class="pdf-answer-text">—</div></div>';
+
+    document.getElementById('pdfContent').innerHTML=
+      '<div class="pdf-header">'+
+        '<div class="pdf-header-text">'+
+          '<div class="pdf-course-tag">ERUA e-Course · Financing & Fundraising for Social Enterprises</div>'+
+          '<div class="pdf-title">Before You Begin — A Moment to Reflect</div>'+
+          '<div class="pdf-meta">Saved on '+date+'</div>'+
+        '</div>'+
+        '<img src="'+logoSrc+'" alt="ERUA" class="pdf-header-logo">'+
+      '</div>'+
+      items+
+      '<div class="pdf-footer">'+
+        '<span>Financing & Fundraising for Social Enterprises · ERUA e-Course Programme · CC BY-NC 4.0</span>'+
+        '<img src="'+logoSrc+'" alt="ERUA" class="pdf-footer-logo">'+
+      '</div>';
+
+    var overlay=document.getElementById('pdfOverlay');
+    overlay.classList.add('show');
+    overlay.scrollTop=0;
+  }
+
+  function closePDF(){document.getElementById('pdfOverlay').classList.remove('show');}
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',restoreDraft);
+  }else{
+    restoreDraft();
+  }
+</script>
+</body>
+</html>

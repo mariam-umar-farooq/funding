@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 — Debt, Equity &amp; Innovative Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{--bg:#F4FBF7;--surface:#FFFFFF;--ink:#1A2E1F;--ink-light:#4A6455;--accent:#1A6B3C;--accent-light:#D4F0E0;--border:#C8E0D2;--amber:#D4870A;--amber-light:#FFF3CD;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--ink);min-height:100vh;}
+  .progress-bar-wrap{height:3px;background:var(--border);width:100%;}
+  .progress-bar-fill{height:100%;background:#1AC978;transition:width .4s ease;}
+  .tab-nav{display:flex;background:var(--surface);border-bottom:2px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:100;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:14px 18px;border:none;background:none;cursor:pointer;color:var(--ink-light);white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;display:flex;align-items:center;gap:6px;}
+  .tab-btn:hover{color:var(--accent);}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .tab-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .2s;}
+  .tab-btn.done .tab-dot,.tab-btn.active .tab-dot{background:var(--accent);}
+  .panel{display:none;padding:32px 24px 60px;max-width:720px;margin:0 auto;}
+  .panel.active{display:block;animation:fadeUp .4s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .panel-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:4px;margin-bottom:14px;}
+  .panel h2{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);line-height:1.2;margin-bottom:10px;}
+  .panel-intro{font-size:14px;color:var(--ink-light);line-height:1.65;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+  .time-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--ink-light);background:var(--bg);border:1px solid var(--border);border-radius:99px;padding:3px 10px;margin-bottom:20px;}
+  .q-block{margin-bottom:24px;}
+  .q-label{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5;}
+  .q-hint{font-size:12px;color:var(--ink-light);margin-bottom:8px;line-height:1.5;font-style:italic;}
+  textarea{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.6;color:var(--ink);background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;resize:vertical;min-height:90px;outline:none;transition:border-color .2s;}
+  textarea:focus{border-color:var(--accent);}
+  textarea::placeholder{color:#B0C8BA;}
+  .example-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light);margin:20px 0 10px;}
+  .veja-box{background:var(--surface);border:1.5px solid var(--border);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:20px;font-size:13px;line-height:1.6;color:var(--ink-light);}
+  .veja-box strong{color:var(--accent);font-weight:600;}
+  .step-item{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;}
+  .step-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .step-body{flex:1;font-size:13px;line-height:1.5;}
+  .step-body strong{color:var(--ink);font-weight:600;}
+  .step-body span{color:var(--ink-light);}
+  .callout{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;line-height:1.6;color:var(--ink);margin:16px 0 24px;}
+  .callout.amber{background:var(--amber-light);border-color:var(--amber);}
+  .callout strong{font-weight:600;}
+  hr.div{border:none;border-top:1px solid var(--border);margin:28px 0;}
+  .sorter{margin-bottom:24px;}
+  .sort-item{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:12px;}
+  .sort-statement{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:10px;}
+  .sort-options{display:flex;gap:6px;flex-wrap:wrap;}
+  .sort-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--bg);color:var(--ink-light);cursor:pointer;transition:all .15s;}
+  .sort-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .sort-btn.selected{background:var(--accent);border-color:var(--accent);color:white;}
+  .sort-feedback{font-size:12px;line-height:1.5;margin-top:10px;padding:8px 12px;border-radius:8px;display:none;}
+  .sort-feedback.show{display:block;}
+  .sort-feedback.correct{background:var(--accent-light);color:var(--accent);}
+  .sort-feedback.incorrect{background:var(--amber-light);color:#9A5D00;}
+  .done-banner{background:var(--accent-light);border:1.5px solid var(--accent);border-radius:12px;padding:20px 24px;text-align:center;display:none;margin-bottom:24px;}
+  .done-banner.show{display:block;animation:fadeUp .4s ease both;}
+  .done-banner h3{font-family:'DM Serif Display',serif;font-size:20px;color:var(--accent);margin-bottom:6px;}
+  .done-banner p{font-size:13px;color:var(--accent);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+  .btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:11px 20px;border-radius:9px;border:none;cursor:pointer;transition:all .2s;}
+  .btn-primary{background:var(--accent);color:white;}
+  .btn-primary:hover{background:#135A30;}
+  .btn-next{background:var(--ink);color:white;}
+  .btn-ghost{background:transparent;color:var(--ink-light);border:1.5px solid var(--border);}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--ink);color:white;font-size:13px;font-weight:500;padding:10px 20px;border-radius:99px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:999;white-space:nowrap;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .footer-note{text-align:center;font-size:11px;color:var(--ink-light);padding:20px 24px;border-top:1px solid var(--border);}
+  .pdf-overlay{display:none;position:fixed;inset:0;background:white;z-index:9999;overflow-y:auto;}
+  .pdf-overlay.show{display:block;}
+  .pdf-toolbar{background:#48F89B;color:#0D3D24;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:10;border-bottom:2px solid #1AC978;}
+  .pdf-toolbar-logo{height:28px;width:auto;flex-shrink:0;}
+  .pdf-toolbar-text{font-size:12px;font-weight:500;line-height:1.4;flex:1;color:#0D3D24;}
+  .pdf-toolbar-text strong{font-weight:700;}
+  .pdf-toolbar-text em{font-style:italic;font-weight:600;}
+  .pdf-toolbar-actions{display:flex;gap:8px;flex-shrink:0;}
+  .btn-print{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;padding:7px 14px;border-radius:7px;border:2px solid #0D3D24;background:#0D3D24;color:#48F89B;cursor:pointer;}
+  .btn-close-pdf{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:7px 12px;border-radius:7px;border:1.5px solid rgba(13,61,36,.4);background:transparent;color:#0D3D24;cursor:pointer;}
+  .pdf-content{max-width:680px;margin:0 auto;padding:40px 48px 60px;}
+  .pdf-header{border-bottom:2px solid #48F89B;padding-bottom:16px;margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+  .pdf-header-text{flex:1;}
+  .pdf-header-logo{height:36px;width:auto;flex-shrink:0;}
+  .pdf-course-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#1AC978;margin-bottom:6px;}
+  .pdf-title{font-family:'DM Serif Display',serif;font-size:22px;color:#1A1A1A;line-height:1.2;margin-bottom:4px;}
+  .pdf-meta{font-size:12px;color:#6B6560;}
+  .pdf-section-heading{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#1AC978;margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid #E2DDD8;}
+  .pdf-answer-block{margin-bottom:18px;page-break-inside:avoid;}
+  .pdf-answer-label{font-size:12px;font-weight:600;color:#1A1A1A;margin-bottom:6px;}
+  .pdf-answer-text{font-size:13px;color:#333;line-height:1.7;background:#F0FFF7;border-left:3px solid #48F89B;padding:10px 14px;border-radius:0 6px 6px 0;white-space:pre-wrap;word-wrap:break-word;}
+  .pdf-footer{margin-top:40px;padding-top:14px;border-top:1px solid #E2DDD8;font-size:11px;color:#6B6560;display:flex;justify-content:space-between;align-items:center;}
+  .pdf-footer-logo{height:18px;width:auto;}
+  @media print{*{visibility:hidden;}.pdf-overlay,.pdf-overlay *{visibility:visible;}.pdf-overlay{position:fixed;inset:0;overflow:visible;background:white;}.pdf-toolbar{display:none !important;}.pdf-content{padding:24px 48px;max-width:100%;}@page{margin:1.5cm;size:A4;}}
+  .sorter{margin-bottom:24px;}
+  .sort-item{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:12px;}
+  .sort-statement{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:10px;font-weight:600;}
+  .sort-options{display:flex;flex-direction:column;gap:6px;}
+  .sort-btn{font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;padding:9px 14px;border-radius:9px;border:1.5px solid var(--border);background:var(--bg);color:var(--ink);cursor:pointer;transition:all .15s;text-align:left;}
+  .sort-btn:hover{border-color:var(--accent);}
+  .sort-btn.selected{background:var(--accent);border-color:var(--accent);color:white;}
+  .sort-feedback{font-size:12px;line-height:1.5;margin-top:10px;padding:8px 12px;border-radius:8px;display:none;}
+  .sort-feedback.show{display:block;}
+  .sort-feedback.correct{background:var(--accent-light);color:var(--accent);}
+  .sort-feedback.incorrect{background:var(--amber-light);color:#9A5D00;}
+  .step-item{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;}
+  .step-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .step-body{flex:1;font-size:13px;line-height:1.5;}
+  .step-body strong{color:var(--ink);font-weight:600;}
+  .step-body span{color:var(--ink-light);}
+
+  .pc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 18px;}
+  .pc .col{border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.5;}
+  .pc .pros{background:var(--accent-light);border:1.5px solid var(--border);}
+  .pc .cons{background:var(--amber-light);border:1.5px solid #F0D9A8;}
+  .pc .col h4{font-size:12px;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em;}
+  .pc .pros h4{color:var(--accent);}
+  .pc .cons h4{color:#9A5D00;}
+  @media(max-width:560px){.pc{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar" style="width:33%"></div></div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" id="tab-0" onclick="showTab(0)"><span class="tab-dot"></span> 1 · Debt &amp; Equity</button>
+  <button class="tab-btn" id="tab-1" onclick="showTab(1)"><span class="tab-dot"></span> 2 · Innovative Tools</button>
+  <button class="tab-btn" id="tab-2" onclick="showTab(2)"><span class="tab-dot"></span> 3 · Reflection</button>
+</div>
+
+<div class="panel active" id="panel-0">
+  <div class="panel-tag">Module 4 · Activity 1 of 3</div>
+  <h2>Borrowing and Sharing Ownership</h2>
+  <div class="time-badge">⏱ About 14 minutes</div>
+  <p class="panel-intro">The remaining funding families do carry a cost — either repayment with interest (debt) or a share of the enterprise (equity). Used well, they unlock growth that own-resources and grants can't reach.</p>
+
+  <div class="example-label">Lending / debt instruments</div>
+  <p style="font-size:13px;line-height:1.6;color:var(--ink-light);margin-bottom:10px;">Provide funding in exchange for repayment of the <strong>principal</strong> plus interest, on pre-agreed terms, sometimes requiring guarantees. Variants include <strong>concessional and flexible loans</strong> (low or no interest, extended terms) and <strong>crowd/peer-to-peer lending</strong> — matching lenders and borrowers via an online platform, with lower overheads than banks.</p>
+  <div class="pc">
+    <div class="col pros"><h4>✓ Pros</h4>Good for financing assets and equipment that boost efficiency or production; the revenue gains can service the debt.</div>
+    <div class="col cons"><h4>✕ Cons</h4>Set repayment terms must be met regardless of performance — a struggling business still owes the instalments.</div>
+  </div>
+
+  <div class="example-label">Equity</div>
+  <p style="font-size:13px;line-height:1.6;color:var(--ink-light);margin-bottom:10px;">Unlike debt, equity capital is received in exchange for a <strong>share of the company</strong> (typically stock). It gives a critical capital base to grow operations, access other finance, and reduce risk for other investors. A <strong>financing member</strong> contributes capital to help establish the company and carry out its social activity. <strong>Venture capital</strong> is equity administered through VC firms.</p>
+  <div class="pc">
+    <div class="col pros"><h4>✓ Pros (venture capital)</h4>Large injections of capital to scale quickly; usually invested once the model and market fit are proven.</div>
+    <div class="col cons"><h4>✕ Cons</h4>You give up a share of ownership — and often some control — of the mission-driven enterprise.</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-label">⚖️ Debt keeps your ownership but demands fixed repayments. Equity shares ownership but flexes with performance. Which fits a social enterprise better, and when?</div>
+    <textarea id="w1" placeholder="I'd lean toward debt/equity when… because…" oninput="autosave()"></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveAndExport()">↓ Save as PDF</button>
+    <button class="btn btn-next" onclick="showTab(1)">Next →</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-1">
+  <div class="panel-tag">Module 4 · Activity 2 of 3</div>
+  <h2>Social Impact Bonds &amp; Mixed Tools</h2>
+  <div class="time-badge">⏱ About 12 minutes</div>
+  <p class="panel-intro">Beyond the classic families, social finance has produced some innovative, hybrid instruments — designed to tie money directly to social outcomes.</p>
+
+  <div class="callout"><strong>Social impact bond (SIB).</strong> A contract with the public sector: it pays for better social outcomes in a given area and passes part of the savings achieved on to investors. Despite the name, it's <em>not</em> a bond — repayment and return depend entirely on achieving the desired social outcomes, which makes it a relatively risky investment.</div>
+
+  <div class="step-item"><div class="step-num">🔀</div><div class="step-body"><strong>Mezzanine finance</strong> <span>— neither pure equity nor pure debt. Earns a higher return than pure debt but less than equity, and carries higher risk than debt but less than equity. Often used in later-stage growth.</span></div></div>
+  <div class="step-item"><div class="step-num">🌐</div><div class="step-body"><strong>Crowd / peer-to-peer lending</strong> <span>— online platforms matching many small lenders to borrowers, often at better terms than traditional institutions for both sides.</span></div></div>
+
+  <div class="callout amber">🧭 <strong>The six families, in one view:</strong> (1) self-financing, (2) friends &amp; family, (3) grants, (4) management of surpluses &amp; assets, (5) lending/debt, (6) equity — with social impact bonds and mezzanine as hybrids that blend features. Most real social enterprises use a <em>mix</em>, matched to their stage.</div>
+
+  <div class="q-block">
+    <div class="q-label">🎯 A social impact bond only pays investors if real outcomes are achieved. What's attractive — and what's risky — about tying money to outcomes that way?</div>
+    <textarea id="w2" placeholder="Attractive: … Risky: …" oninput="autosave()"></textarea>
+  </div>
+
+  <hr class="div">
+  <div class="q-label" style="margin-bottom:6px;">🧩 Knowledge check (from the course quiz)</div>
+  <p class="q-hint" style="margin-bottom:16px;">Tap your answer. Instant feedback explains the reasoning.</p>
+  <div class="sorter">
+    <div class="sort-item">
+      <div class="sort-statement">Social bonds promote:</div>
+      <div class="sort-options">
+        <button class="sort-btn" onclick="sortAnswer(this,'q1','a')">Collection of resources for social enterprise and social innovation</button>
+        <button class="sort-btn" onclick="sortAnswer(this,'q1','b')">Only private funding for the social economy</button>
+      </div>
+      <div class="sort-feedback" id="fb_q1"></div>
+    </div>
+    <div class="sort-item">
+      <div class="sort-statement">Social enterprises are funded through which financial mechanisms?</div>
+      <div class="sort-options">
+        <button class="sort-btn" onclick="sortAnswer(this,'q2','all')">All of them — lending &amp; debt, subsidies, grants, self-financing, family &amp; friends</button>
+        <button class="sort-btn" onclick="sortAnswer(this,'q2','grants')">Only grants</button>
+      </div>
+      <div class="sort-feedback" id="fb_q2"></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveAndExport()">↓ Save as PDF</button>
+    <button class="btn btn-ghost" onclick="showTab(0)">← Back</button>
+    <button class="btn btn-next" onclick="showTab(2)">Next →</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-2">
+  <div class="panel-tag">Module 4 · Activity 3 of 3</div>
+  <h2>Reflection</h2>
+  <div class="time-badge">⏱ About 6 minutes</div>
+  <p class="panel-intro">Most ventures end up blending several tools. Start sketching your mix.</p>
+
+  <div class="q-block"><div class="q-label">🧰 Name two or three funding tools you'd realistically combine for a venture you care about — and why that mix.</div><textarea id="r1" placeholder="I'd combine… because…" oninput="autosave();checkDone()"></textarea></div>
+  <div class="q-block"><div class="q-label">⚠️ Which tool worries you most to use, and what would you want to understand before taking it on?</div><textarea id="r2" placeholder="The one that worries me is… I'd want to understand…" oninput="autosave();checkDone()"></textarea></div>
+  <div class="q-block"><div class="q-label">💡 Does any innovative tool (social impact bond, mezzanine, crowdlending) fit your context? Why or why not?</div><textarea id="r3" placeholder="…" oninput="autosave();checkDone()"></textarea></div>
+
+  <div class="done-banner" id="doneBanner">
+    <h3>✓ Module 4 complete</h3>
+    <p>You've now seen the full toolkit — from own resources to equity and hybrids. The final module brings it together into a funding strategy. Save your work below.</p>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveAndExport()">↓ Save as PDF</button>
+    <button class="btn btn-ghost" onclick="showTab(1)">← Back</button>
+  </div>
+</div>
+
+<div class="pdf-overlay" id="pdfOverlay">
+  <div class="pdf-toolbar">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAABkCAMAAADjVt21AAAACXBIWXMAAAsSAAALEgHS3X78AAAAM1BMVEVHcExI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JsXaIzrAAAAEHRSTlMAMCBAYBDggMDwkNCgULBwaiguQQAAAWtJREFUWMPt2G1ugzAMBuCGfDmBdr7/aYdUdYUBwdjvtvyYD/BIMY5jc7v1GCGLIvgTh1gaY3UQZ46UI8RhLkfSRWeWPjAOM0WMw8VhHC4B4zAHkMMO5JQB4/AIcjiDnHWKDA6BHPYgh0AODyCngpwEchYHszkB5FSQQyBnBDn87/yKM3ZWP7Wz+zX01X9qX/2Z+nq/qK/3PXc1/6DmMdfTvAqan0HzPGa/2DnTn+1fkH2wvZ+29uW0SIpXb+T31Ko7afj1gUtUKY4aLV0cw9Tu6bKI03kXFSi5HHz3+xXmUJmLUJ7qkOQNWVgwrE21P78hD03BnD2g4oJpzynygrmY6tj41Ns2FhUFsxeTpmDEqU7mZ/0ZkJdU6eyl2jqkmhx2IIdAzrajadeBiHE21wyxEJicB8j5ds0gm5fJWafa4KyumWWHm0DOMtWgfwk2Z9HRbM471Tbn3dGMzldHszoEcl6pztZQj9U/GJ/PFzeemPqY1wAAAABJRU5ErkJggg==" alt="ERUA" class="pdf-toolbar-logo">
+    <div class="pdf-toolbar-text"><strong>Save as PDF:</strong> Click the button → your browser's print dialog opens → set the destination to <em>"Save as PDF"</em> → enable background graphics → save.</div>
+    <div class="pdf-toolbar-actions">
+      <button class="btn-print" onclick="window.print()">🖨 Save as PDF</button>
+      <button class="btn-close-pdf" onclick="closePDF()">✕ Close</button>
+    </div>
+  </div>
+  <div class="pdf-content" id="pdfContent"></div>
+</div>
+
+<div class="toast" id="toast">✓ Draft saved</div>
+<div class="footer-note">Financing &amp; Fundraising for Social Enterprises · ERUA e-Course Programme</div>
+
+<script>
+  var fields = {0:['w1'],1:['w2'],2:['r1','r2','r3']};
+  var labels = {
+    w1:'Whether debt or equity fits a social enterprise better, and when',
+    w2:'What’s attractive and risky about outcome-based funding (SIB)',
+    r1:'Two or three funding tools you’d combine, and why',
+    r2:'The tool that worries you most, and what to understand first',
+    r3:'Whether an innovative tool fits your context'
+  };
+  var panelTitles = {0:'Debt & Equity',1:'Social Impact Bonds & Mixed Tools',2:'Reflection'};
+  var STORAGE_KEY='erua_fund_module4';
+  var pdfTitle='Module 4 — Debt, Equity & Innovative Tools';
+
+  var sortAnswers={q1:'a',q2:'all'};
+  var sortExplain={
+    q1:'Social bonds promote the collection of resources for social enterprise and social innovation — pooling capital toward social outcomes.',
+    q2:'All of them — social enterprises draw on lending and debt, government subsidies, grants, and self-financing from family and friends.'
+  };
+  var sortResult={};
+  function sortAnswer(btn,qid,choice){
+    var parent=btn.parentNode;
+    parent.querySelectorAll('.sort-btn').forEach(function(b){b.classList.remove('selected');});
+    btn.classList.add('selected');
+    var fb=document.getElementById('fb_'+qid);
+    fb.classList.add('show');
+    if(choice===sortAnswers[qid]){fb.className='sort-feedback show correct';fb.textContent='✓ Correct. '+sortExplain[qid];sortResult[qid]=true;}
+    else{fb.className='sort-feedback show incorrect';fb.textContent='Not quite. '+sortExplain[qid];sortResult[qid]=false;}
+    autosave();
+  }
+  function showTab(n){document.querySelectorAll('.panel').forEach(function(p,i){p.classList.toggle('active',i===n);});document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===n);});document.getElementById('progressBar').style.width=[33,66,100][n]+'%';window.scrollTo({top:0,behavior:'smooth'});}
+  function allFieldIds(){var ids=[];Object.keys(fields).forEach(function(k){ids=ids.concat(fields[k]);});return ids;}
+  var toastTimer;
+  function autosave(){try{var data={};allFieldIds().forEach(function(id){var el=document.getElementById(id);if(el)data[id]=el.value;});data._sort=sortResult;localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}clearTimeout(toastTimer);var t=document.getElementById('toast');t.classList.add('show');toastTimer=setTimeout(function(){t.classList.remove('show');},1800);}
+  function restoreDraft(){try{var raw=localStorage.getItem(STORAGE_KEY);if(!raw)return;var data=JSON.parse(raw);Object.keys(data).forEach(function(id){if(id==='_sort')return;var el=document.getElementById(id);if(el&&data[id]!=null)el.value=data[id];});checkDone();}catch(e){}}
+  function checkDone(){var done=['r1','r2','r3'].every(function(id){var el=document.getElementById(id);return el&&el.value.trim()!=='';});if(done){var b=document.getElementById('doneBanner');if(b)b.classList.add('show');var t=document.getElementById('tab-2');if(t)t.classList.add('done');}}
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function saveAndExport(){
+    var date=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    var logoSrc=document.querySelector('.pdf-toolbar-logo').src;
+    var sectionsHTML='';
+    Object.keys(fields).forEach(function(tab){var ids=fields[tab];var items='';ids.forEach(function(id){var el=document.getElementById(id);if(!el)return;var v=el.value.trim();if(!v)return;items+='<div class="pdf-answer-block"><div class="pdf-answer-label">'+(labels[id]||id)+'</div><div class="pdf-answer-text">'+esc(v)+'</div></div>';});if(items)sectionsHTML+='<div class="pdf-section-heading">'+panelTitles[tab]+'</div>'+items;});
+    document.getElementById('pdfContent').innerHTML='<div class="pdf-header"><div class="pdf-header-text"><div class="pdf-course-tag">ERUA e-Course · Financing &amp; Fundraising for Social Enterprises</div><div class="pdf-title">'+pdfTitle+'</div><div class="pdf-meta">Saved on '+date+'</div></div><img src="'+logoSrc+'" alt="ERUA" class="pdf-header-logo"></div>'+sectionsHTML+'<div class="pdf-footer"><span>Financing &amp; Fundraising for Social Enterprises · ERUA e-Course Programme · CC BY-NC 4.0</span><img src="'+logoSrc+'" alt="ERUA" class="pdf-footer-logo"></div>';
+    var overlay=document.getElementById('pdfOverlay');overlay.classList.add('show');overlay.scrollTop=0;
+  }
+  function closePDF(){document.getElementById('pdfOverlay').classList.remove('show');}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',restoreDraft);}else{restoreDraft();}
+
+</script>
+</body>
+</html>

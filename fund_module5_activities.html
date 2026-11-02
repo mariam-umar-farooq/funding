@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 — Building Your Funding Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{--bg:#F4FBF7;--surface:#FFFFFF;--ink:#1A2E1F;--ink-light:#4A6455;--accent:#1A6B3C;--accent-light:#D4F0E0;--border:#C8E0D2;--amber:#D4870A;--amber-light:#FFF3CD;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--ink);min-height:100vh;}
+  .progress-bar-wrap{height:3px;background:var(--border);width:100%;}
+  .progress-bar-fill{height:100%;background:#1AC978;transition:width .4s ease;}
+  .tab-nav{display:flex;background:var(--surface);border-bottom:2px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:100;}
+  .tab-nav::-webkit-scrollbar{display:none;}
+  .tab-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:14px 18px;border:none;background:none;cursor:pointer;color:var(--ink-light);white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;display:flex;align-items:center;gap:6px;}
+  .tab-btn:hover{color:var(--accent);}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .tab-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .2s;}
+  .tab-btn.done .tab-dot,.tab-btn.active .tab-dot{background:var(--accent);}
+  .panel{display:none;padding:32px 24px 60px;max-width:720px;margin:0 auto;}
+  .panel.active{display:block;animation:fadeUp .4s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .panel-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:4px;margin-bottom:14px;}
+  .panel h2{font-family:'DM Serif Display',serif;font-size:clamp(22px,4vw,30px);line-height:1.2;margin-bottom:10px;}
+  .panel-intro{font-size:14px;color:var(--ink-light);line-height:1.65;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+  .time-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--ink-light);background:var(--bg);border:1px solid var(--border);border-radius:99px;padding:3px 10px;margin-bottom:20px;}
+  .q-block{margin-bottom:24px;}
+  .q-label{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5;}
+  .q-hint{font-size:12px;color:var(--ink-light);margin-bottom:8px;line-height:1.5;font-style:italic;}
+  textarea{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.6;color:var(--ink);background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;resize:vertical;min-height:90px;outline:none;transition:border-color .2s;}
+  textarea:focus{border-color:var(--accent);}
+  textarea::placeholder{color:#B0C8BA;}
+  .example-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light);margin:20px 0 10px;}
+  .veja-box{background:var(--surface);border:1.5px solid var(--border);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:20px;font-size:13px;line-height:1.6;color:var(--ink-light);}
+  .veja-box strong{color:var(--accent);font-weight:600;}
+  .step-item{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;}
+  .step-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .step-body{flex:1;font-size:13px;line-height:1.5;}
+  .step-body strong{color:var(--ink);font-weight:600;}
+  .step-body span{color:var(--ink-light);}
+  .callout{background:var(--accent-light);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;line-height:1.6;color:var(--ink);margin:16px 0 24px;}
+  .callout.amber{background:var(--amber-light);border-color:var(--amber);}
+  .callout strong{font-weight:600;}
+  hr.div{border:none;border-top:1px solid var(--border);margin:28px 0;}
+  .sorter{margin-bottom:24px;}
+  .sort-item{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:12px;}
+  .sort-statement{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:10px;}
+  .sort-options{display:flex;gap:6px;flex-wrap:wrap;}
+  .sort-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--bg);color:var(--ink-light);cursor:pointer;transition:all .15s;}
+  .sort-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .sort-btn.selected{background:var(--accent);border-color:var(--accent);color:white;}
+  .sort-feedback{font-size:12px;line-height:1.5;margin-top:10px;padding:8px 12px;border-radius:8px;display:none;}
+  .sort-feedback.show{display:block;}
+  .sort-feedback.correct{background:var(--accent-light);color:var(--accent);}
+  .sort-feedback.incorrect{background:var(--amber-light);color:#9A5D00;}
+  .done-banner{background:var(--accent-light);border:1.5px solid var(--accent);border-radius:12px;padding:20px 24px;text-align:center;display:none;margin-bottom:24px;}
+  .done-banner.show{display:block;animation:fadeUp .4s ease both;}
+  .done-banner h3{font-family:'DM Serif Display',serif;font-size:20px;color:var(--accent);margin-bottom:6px;}
+  .done-banner p{font-size:13px;color:var(--accent);}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+  .btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:11px 20px;border-radius:9px;border:none;cursor:pointer;transition:all .2s;}
+  .btn-primary{background:var(--accent);color:white;}
+  .btn-primary:hover{background:#135A30;}
+  .btn-next{background:var(--ink);color:white;}
+  .btn-ghost{background:transparent;color:var(--ink-light);border:1.5px solid var(--border);}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--ink);color:white;font-size:13px;font-weight:500;padding:10px 20px;border-radius:99px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:999;white-space:nowrap;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .footer-note{text-align:center;font-size:11px;color:var(--ink-light);padding:20px 24px;border-top:1px solid var(--border);}
+  .pdf-overlay{display:none;position:fixed;inset:0;background:white;z-index:9999;overflow-y:auto;}
+  .pdf-overlay.show{display:block;}
+  .pdf-toolbar{background:#48F89B;color:#0D3D24;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:10;border-bottom:2px solid #1AC978;}
+  .pdf-toolbar-logo{height:28px;width:auto;flex-shrink:0;}
+  .pdf-toolbar-text{font-size:12px;font-weight:500;line-height:1.4;flex:1;color:#0D3D24;}
+  .pdf-toolbar-text strong{font-weight:700;}
+  .pdf-toolbar-text em{font-style:italic;font-weight:600;}
+  .pdf-toolbar-actions{display:flex;gap:8px;flex-shrink:0;}
+  .btn-print{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;padding:7px 14px;border-radius:7px;border:2px solid #0D3D24;background:#0D3D24;color:#48F89B;cursor:pointer;}
+  .btn-close-pdf{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;padding:7px 12px;border-radius:7px;border:1.5px solid rgba(13,61,36,.4);background:transparent;color:#0D3D24;cursor:pointer;}
+  .pdf-content{max-width:680px;margin:0 auto;padding:40px 48px 60px;}
+  .pdf-header{border-bottom:2px solid #48F89B;padding-bottom:16px;margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+  .pdf-header-text{flex:1;}
+  .pdf-header-logo{height:36px;width:auto;flex-shrink:0;}
+  .pdf-course-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#1AC978;margin-bottom:6px;}
+  .pdf-title{font-family:'DM Serif Display',serif;font-size:22px;color:#1A1A1A;line-height:1.2;margin-bottom:4px;}
+  .pdf-meta{font-size:12px;color:#6B6560;}
+  .pdf-section-heading{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#1AC978;margin:24px 0 12px;padding-bottom:6px;border-bottom:1px solid #E2DDD8;}
+  .pdf-answer-block{margin-bottom:18px;page-break-inside:avoid;}
+  .pdf-answer-label{font-size:12px;font-weight:600;color:#1A1A1A;margin-bottom:6px;}
+  .pdf-answer-text{font-size:13px;color:#333;line-height:1.7;background:#F0FFF7;border-left:3px solid #48F89B;padding:10px 14px;border-radius:0 6px 6px 0;white-space:pre-wrap;word-wrap:break-word;}
+  .pdf-footer{margin-top:40px;padding-top:14px;border-top:1px solid #E2DDD8;font-size:11px;color:#6B6560;display:flex;justify-content:space-between;align-items:center;}
+  .pdf-footer-logo{height:18px;width:auto;}
+  @media print{*{visibility:hidden;}.pdf-overlay,.pdf-overlay *{visibility:visible;}.pdf-overlay{position:fixed;inset:0;overflow:visible;background:white;}.pdf-toolbar{display:none !important;}.pdf-content{padding:24px 48px;max-width:100%;}@page{margin:1.5cm;size:A4;}}
+  .sorter{margin-bottom:24px;}
+  .sort-item{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:12px;}
+  .sort-statement{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:10px;font-weight:600;}
+  .sort-options{display:flex;flex-direction:column;gap:6px;}
+  .sort-btn{font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:500;padding:9px 14px;border-radius:9px;border:1.5px solid var(--border);background:var(--bg);color:var(--ink);cursor:pointer;transition:all .15s;text-align:left;}
+  .sort-btn:hover{border-color:var(--accent);}
+  .sort-btn.selected{background:var(--accent);border-color:var(--accent);color:white;}
+  .sort-feedback{font-size:12px;line-height:1.5;margin-top:10px;padding:8px 12px;border-radius:8px;display:none;}
+  .sort-feedback.show{display:block;}
+  .sort-feedback.correct{background:var(--accent-light);color:var(--accent);}
+  .sort-feedback.incorrect{background:var(--amber-light);color:#9A5D00;}
+  .step-item{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;}
+  .step-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--accent);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .step-body{flex:1;font-size:13px;line-height:1.5;}
+  .step-body strong{color:var(--ink);font-weight:600;}
+  .step-body span{color:var(--ink-light);}
+
+  .cv-block{margin-bottom:12px;padding:14px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;}
+  .cv-block .cv-label{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:1px;}
+  .cv-block .cv-q{font-size:11px;color:var(--ink-light);font-style:italic;margin-bottom:8px;line-height:1.45;}
+  .cv-block textarea{min-height:58px;}
+  .cv-section{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light);margin:20px 0 10px;}
+</style>
+</head>
+<body>
+
+<div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar" style="width:33%"></div></div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" id="tab-0" onclick="showTab(0)"><span class="tab-dot"></span> 1 · Match &amp; Plan</button>
+  <button class="tab-btn" id="tab-1" onclick="showTab(1)"><span class="tab-dot"></span> 2 · Your Funding Plan</button>
+  <button class="tab-btn" id="tab-2" onclick="showTab(2)"><span class="tab-dot"></span> 3 · Reflection</button>
+</div>
+
+<div class="panel active" id="panel-0">
+  <div class="panel-tag">Module 5 · Activity 1 of 3</div>
+  <h2>From Tools to a Strategy</h2>
+  <div class="time-badge">⏱ About 12 minutes</div>
+  <p class="panel-intro">Knowing the tools isn't a strategy. A funding strategy aligns the money you seek with your <em>stage</em>, your <em>mission</em>, and your tolerance for <em>risk</em> — and it's something you can present convincingly to funders. This final module brings the whole course together.</p>
+
+  <div class="example-label">Three questions a funding strategy answers</div>
+  <div class="step-item"><div class="step-num">1</div><div class="step-body"><strong>Match to stage</strong> <span>— is the venture at Blueprint, Validate, Prepare or Scale? Early stages favour own resources, friends &amp; family, and grants; later stages open up loans, equity and social investment.</span></div></div>
+  <div class="step-item"><div class="step-num">2</div><div class="step-body"><strong>Match to mission</strong> <span>— does this money keep the mission the principal beneficiary, or does it pull the venture off course? Mission-aligned money is worth more than it looks.</span></div></div>
+  <div class="step-item"><div class="step-num">3</div><div class="step-body"><strong>Assess the risk</strong> <span>— can you meet repayment terms regardless of performance (debt)? Are you willing to share ownership (equity)? What happens if a funder pulls out?</span></div></div>
+
+  <div class="callout">💡 <strong>Sound financial planning</strong> means developing a clear financial roadmap, understanding risk, and ensuring long-term financial health — not just landing one grant. A credible plan is also what lets you <em>pitch funding proposals convincingly</em>.</div>
+
+  <div class="q-block">
+    <div class="q-label">🧭 For a venture you care about: name its stage, and the one funding source that best fits that stage right now.</div>
+    <textarea id="w1" placeholder="Stage: … Best-fit source right now: … because…" oninput="autosave()"></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveAndExport()">↓ Save as PDF</button>
+    <button class="btn btn-next" onclick="showTab(1)">Next →</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-1">
+  <div class="panel-tag">Module 5 · Activity 2 of 3</div>
+  <h2>Build Your Funding Plan</h2>
+  <div class="time-badge">⏱ About 25 minutes</div>
+  <p class="panel-intro">Draft a simple funding plan for a venture (real or imagined). Keep it short — a line or two per field. This is the deliverable that ties the course together.</p>
+
+  <div class="cv-section">The venture</div>
+  <div class="cv-block"><div class="cv-label">Venture &amp; mission</div><div class="cv-q">What does it do, and what social problem does it exist to solve?</div><textarea id="p_mission" placeholder="Our venture… Its mission is…" oninput="autosave()"></textarea></div>
+  <div class="cv-block"><div class="cv-label">Current stage</div><div class="cv-q">Blueprint, Validate, Prepare or Scale?</div><textarea id="p_stage" placeholder="We're at the … stage." oninput="autosave()"></textarea></div>
+  <div class="cv-block"><div class="cv-label">What we need funding for</div><div class="cv-q">Start-up costs, cash flow, or investment to grow?</div><textarea id="p_need" placeholder="We need funding to…" oninput="autosave()"></textarea></div>
+
+  <div class="cv-section">The funding mix</div>
+  <div class="cv-block"><div class="cv-label">Primary source</div><div class="cv-q">The main tool you'll pursue — and why it fits your stage and mission.</div><textarea id="p_primary" placeholder="Our primary source is… because…" oninput="autosave()"></textarea></div>
+  <div class="cv-block"><div class="cv-label">Secondary / backup source</div><div class="cv-q">A second tool to combine or fall back on.</div><textarea id="p_secondary" placeholder="We'll also use / fall back on…" oninput="autosave()"></textarea></div>
+  <div class="cv-block"><div class="cv-label">Biggest financial risk</div><div class="cv-q">What could go wrong, and how you'd reduce it.</div><textarea id="p_risk" placeholder="Our biggest risk is… We'd reduce it by…" oninput="autosave()"></textarea></div>
+
+  <div class="cv-section">The pitch</div>
+  <div class="cv-block"><div class="cv-label">One-sentence pitch to a funder</div><div class="cv-q">Why should they fund you — mission and credibility in one line?</div><textarea id="p_pitch" placeholder="Fund us because…" oninput="autosave()"></textarea></div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveAndExport()">↓ Save as PDF</button>
+    <button class="btn btn-ghost" onclick="showTab(0)">← Back</button>
+    <button class="btn btn-next" onclick="showTab(2)">Next →</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-2">
+  <div class="panel-tag">Module 5 · Activity 3 of 3</div>
+  <h2>Reflection</h2>
+  <div class="time-badge">⏱ About 6 minutes</div>
+  <p class="panel-intro">This is the last module — a chance to step back on the whole course.</p>
+
+  <div class="q-block"><div class="q-label">🔁 Has your view of "where to get the money from" changed since Module 1? How?</div><textarea id="r1" placeholder="At the start I thought… now I…" oninput="autosave();checkDone()"></textarea></div>
+  <div class="q-block"><div class="q-label">⚖️ What's the hardest trade-off in funding a social enterprise — and how would you handle it?</div><div class="q-hint">Control vs growth? Mission vs money? Speed vs independence?</div><textarea id="r2" placeholder="The hardest trade-off is…" oninput="autosave();checkDone()"></textarea></div>
+  <div class="q-block"><div class="q-label">🎯 What's your single next step to make your venture more fundable?</div><textarea id="r3" placeholder="My next step is…" oninput="autosave();checkDone()"></textarea></div>
+
+  <div class="done-banner" id="doneBanner">
+    <h3>🎓 Course complete!</h3>
+    <p>You've mapped why social enterprises need funding, who supplies it, the full toolkit of mechanisms, and how to build a funding strategy. This is the final module. Save your funding plan below — and go make the case.</p>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveAndExport()">↓ Save as PDF</button>
+    <button class="btn btn-ghost" onclick="showTab(1)">← Back</button>
+  </div>
+</div>
+
+<div class="pdf-overlay" id="pdfOverlay">
+  <div class="pdf-toolbar">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAABkCAMAAADjVt21AAAACXBIWXMAAAsSAAALEgHS3X78AAAAM1BMVEVHcExI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JtI+JsXaIzrAAAAEHRSTlMAMCBAYBDggMDwkNCgULBwaiguQQAAAWtJREFUWMPt2G1ugzAMBuCGfDmBdr7/aYdUdYUBwdjvtvyYD/BIMY5jc7v1GCGLIvgTh1gaY3UQZ46UI8RhLkfSRWeWPjAOM0WMw8VhHC4B4zAHkMMO5JQB4/AIcjiDnHWKDA6BHPYgh0AODyCngpwEchYHszkB5FSQQyBnBDn87/yKM3ZWP7Wz+zX01X9qX/2Z+nq/qK/3PXc1/6DmMdfTvAqan0HzPGa/2DnTn+1fkH2wvZ+29uW0SIpXb+T31Ko7afj1gUtUKY4aLV0cw9Tu6bKI03kXFSi5HHz3+xXmUJmLUJ7qkOQNWVgwrE21P78hD03BnD2g4oJpzynygrmY6tj41Ns2FhUFsxeTpmDEqU7mZ/0ZkJdU6eyl2jqkmhx2IIdAzrajadeBiHE21wyxEJicB8j5ds0gm5fJWafa4KyumWWHm0DOMtWgfwk2Z9HRbM471Tbn3dGMzldHszoEcl6pztZQj9U/GJ/PFzeemPqY1wAAAABJRU5ErkJggg==" alt="ERUA" class="pdf-toolbar-logo">
+    <div class="pdf-toolbar-text"><strong>Save as PDF:</strong> Click the button → your browser's print dialog opens → set the destination to <em>"Save as PDF"</em> → enable background graphics → save.</div>
+    <div class="pdf-toolbar-actions">
+      <button class="btn-print" onclick="window.print()">🖨 Save as PDF</button>
+      <button class="btn-close-pdf" onclick="closePDF()">✕ Close</button>
+    </div>
+  </div>
+  <div class="pdf-content" id="pdfContent"></div>
+</div>
+
+<div class="toast" id="toast">✓ Draft saved</div>
+<div class="footer-note">Financing &amp; Fundraising for Social Enterprises · ERUA e-Course Programme</div>
+
+<script>
+  var fields = {0:['w1'],1:['p_mission','p_stage','p_need','p_primary','p_secondary','p_risk','p_pitch'],2:['r1','r2','r3']};
+  var labels = {
+    w1:'Your venture’s stage and best-fit funding source now',
+    p_mission:'Venture & mission',p_stage:'Current stage',p_need:'What we need funding for',
+    p_primary:'Primary source (and why it fits)',p_secondary:'Secondary / backup source',p_risk:'Biggest financial risk & mitigation',
+    p_pitch:'One-sentence pitch to a funder',
+    r1:'How your view of funding has changed',
+    r2:'The hardest trade-off in funding a social enterprise',
+    r3:'Your single next step to be more fundable'
+  };
+  var panelTitles = {0:'From Tools to a Strategy',1:'Your Funding Plan',2:'Reflection'};
+  var STORAGE_KEY='erua_fund_module5';
+  var pdfTitle='Module 5 — Building Your Funding Strategy';
+  var sortResult={};
+  function showTab(n){document.querySelectorAll('.panel').forEach(function(p,i){p.classList.toggle('active',i===n);});document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===n);});document.getElementById('progressBar').style.width=[33,66,100][n]+'%';window.scrollTo({top:0,behavior:'smooth'});}
+  function allFieldIds(){var ids=[];Object.keys(fields).forEach(function(k){ids=ids.concat(fields[k]);});return ids;}
+  var toastTimer;
+  function autosave(){try{var data={};allFieldIds().forEach(function(id){var el=document.getElementById(id);if(el)data[id]=el.value;});data._sort=sortResult;localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}clearTimeout(toastTimer);var t=document.getElementById('toast');t.classList.add('show');toastTimer=setTimeout(function(){t.classList.remove('show');},1800);}
+  function restoreDraft(){try{var raw=localStorage.getItem(STORAGE_KEY);if(!raw)return;var data=JSON.parse(raw);Object.keys(data).forEach(function(id){if(id==='_sort')return;var el=document.getElementById(id);if(el&&data[id]!=null)el.value=data[id];});checkDone();}catch(e){}}
+  function checkDone(){var done=['r1','r2','r3'].every(function(id){var el=document.getElementById(id);return el&&el.value.trim()!=='';});if(done){var b=document.getElementById('doneBanner');if(b)b.classList.add('show');var t=document.getElementById('tab-2');if(t)t.classList.add('done');}}
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function saveAndExport(){
+    var date=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    var logoSrc=document.querySelector('.pdf-toolbar-logo').src;
+    var sectionsHTML='';
+    Object.keys(fields).forEach(function(tab){var ids=fields[tab];var items='';ids.forEach(function(id){var el=document.getElementById(id);if(!el)return;var v=el.value.trim();if(!v)return;items+='<div class="pdf-answer-block"><div class="pdf-answer-label">'+(labels[id]||id)+'</div><div class="pdf-answer-text">'+esc(v)+'</div></div>';});if(items)sectionsHTML+='<div class="pdf-section-heading">'+panelTitles[tab]+'</div>'+items;});
+    document.getElementById('pdfContent').innerHTML='<div class="pdf-header"><div class="pdf-header-text"><div class="pdf-course-tag">ERUA e-Course · Financing &amp; Fundraising for Social Enterprises</div><div class="pdf-title">'+pdfTitle+'</div><div class="pdf-meta">Saved on '+date+'</div></div><img src="'+logoSrc+'" alt="ERUA" class="pdf-header-logo"></div>'+sectionsHTML+'<div class="pdf-footer"><span>Financing &amp; Fundraising for Social Enterprises · ERUA e-Course Programme · CC BY-NC 4.0</span><img src="'+logoSrc+'" alt="ERUA" class="pdf-footer-logo"></div>';
+    var overlay=document.getElementById('pdfOverlay');overlay.classList.add('show');overlay.scrollTop=0;
+  }
+  function closePDF(){document.getElementById('pdfOverlay').classList.remove('show');}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',restoreDraft);}else{restoreDraft();}
+
+</script>
+</body>
+</html>
